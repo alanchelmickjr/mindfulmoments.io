@@ -39,15 +39,18 @@ export default function StartCall() {
               }}
             >
               <Button
-                className={"z-50 flex items-center justify-center"}
+                className={"z-50 flex items-center justify-center relative overflow-hidden"}
                 style={{
-                  backgroundColor: "#4CAF50", // Lily pad green color
+                  background: "linear-gradient(145deg, #43a047, #4CAF50)", // Gradient for 3D effect
                   borderRadius: "50%", // Make it round
                   width: "120px",
                   height: "120px",
                   fontSize: "1.2rem",
                   fontWeight: "600",
-                  boxShadow: "0 4px 14px rgba(0, 0, 0, 0.2)",
+                  boxShadow: "12px 12px 24px rgba(0, 0, 0, 0.2), -8px -8px 20px rgba(255, 255, 255, 0.3), inset 2px 2px 5px rgba(255, 255, 255, 0.2), inset -3px -3px 7px rgba(0, 0, 0, 0.1)",
+                  border: "1px solid rgba(255, 255, 255, 0.1)",
+                  transform: "translateY(0px)",
+                  transition: "all 0.2s ease",
                 }}
                 onClick={() => {
                   if (isConnecting) return; // Prevent multiple clicks
@@ -66,8 +69,46 @@ export default function StartCall() {
                     });
                 }}
                 disabled={isConnecting}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = "translateY(-5px)";
+                  e.currentTarget.style.boxShadow = "12px 12px 30px rgba(0, 0, 0, 0.25), -8px -8px 20px rgba(255, 255, 255, 0.4), inset 2px 2px 5px rgba(255, 255, 255, 0.2), inset -3px -3px 7px rgba(0, 0, 0, 0.1)";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = "translateY(0px)";
+                  e.currentTarget.style.boxShadow = "12px 12px 24px rgba(0, 0, 0, 0.2), -8px -8px 20px rgba(255, 255, 255, 0.3), inset 2px 2px 5px rgba(255, 255, 255, 0.2), inset -3px -3px 7px rgba(0, 0, 0, 0.1)";
+                }}
               >
-                <span>{isConnecting ? "Connecting..." : "Reflect"}</span>
+                {/* Lily pad texture overlay */}
+                <div
+                  className="absolute inset-0 opacity-20 rounded-full"
+                  style={{
+                    backgroundImage: "radial-gradient(circle at 30% 30%, transparent 10%, rgba(0, 100, 0, 0.1) 10%, rgba(0, 100, 0, 0.1) 20%, transparent 30%)",
+                    backgroundSize: "30px 30px",
+                    backgroundRepeat: "repeat",
+                    pointerEvents: "none"
+                  }}
+                />
+                
+                {/* Floating animation when not connecting */}
+                {!isConnecting && (
+                  <motion.div
+                    className="absolute inset-0"
+                    animate={{
+                      y: [0, -5, 0],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    style={{
+                      pointerEvents: "none",
+                      opacity: 0.01
+                    }}
+                  />
+                )}
+                
+                <span className="relative z-10">{isConnecting ? "Connecting..." : "Reflect"}</span>
                 {isConnecting && (
                   <motion.div
                     className="absolute inset-0 rounded-full"

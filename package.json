@@ -2,7 +2,7 @@
   "name": "mindfulmoments-io",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/mindfulmoments/mindfulmoments.io",
+  "homepage": "https://github.com/alanchelmickjr/mindfulmoments.io",
   "description": "A wellness and reflection app powered by Hume AI that helps users maintain balance through emotional awareness, mindfulness practices, and personalized insights.",
   "scripts": {
     "dev": "next dev",

@@ -1,7 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useState } from "react";
-import HumeLogo from "./logos/Hume";
+import MindfulMomentsLogo from "./logos/MindfulMoments";
 import { Button } from "./ui/button";
 import { Moon, Sun } from "lucide-react";
 import Github from "./logos/GitHub";
@@ -33,13 +33,13 @@ export const Nav = () => {
       }
     >
       <div>
-        <HumeLogo className={"h-5 w-auto"} />
+        <MindfulMomentsLogo className={"h-5 w-auto"} />
       </div>
       <div className={"ml-auto flex items-center gap-1"}>
         <Button
           onClick={() => {
             window.open(
-              pkg.homepage,
+              "https://github.com/alanchelmickjr/mindfulmoments.io",
               "_blank",
               "noopener noreferrer"
             );
