@@ -17,12 +17,18 @@ export default function CircularFFT({ fft, isActive }: CircularFFTProps) {
           width={width}
           height={height}
           className="absolute inset-0"
+          style={{
+            width: '100%',
+            height: '100%',
+            borderRadius: '50%',
+            overflow: 'hidden'
+          }}
         >
           {/* Create circular FFT visualization */}
           {Array.from({ length: 24 }).map((_, index) => {
             const value = (fft[index] ?? 0) / 4;
             const angle = (index / 24) * Math.PI * 2;
-            const radius = width / 2;
+            const radius = Math.min(width, height) / 2;
             const barLength = value * (radius * 0.4);
             
             // Calculate start and end points for the line
@@ -42,7 +48,13 @@ export default function CircularFFT({ fft, isActive }: CircularFFTProps) {
                 strokeWidth={2}
                 strokeOpacity={0.5}
                 initial={{ opacity: 0 }}
-                animate={{ opacity: isActive ? 1 : 0 }}
+                animate={{ 
+                  opacity: isActive ? 1 : 0,
+                  strokeWidth: isActive ? 2 : 0
+                }}
+                transition={{
+                  duration: 0.2
+                }}
               />
             );
           })}
@@ -51,7 +63,7 @@ export default function CircularFFT({ fft, isActive }: CircularFFTProps) {
           <circle
             cx={width / 2}
             cy={height / 2}
-            r={width * 0.3}
+            r={Math.min(width, height) * 0.3}
             fill="currentColor"
             fillOpacity={0.2}
           />

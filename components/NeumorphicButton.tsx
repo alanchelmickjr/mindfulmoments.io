@@ -48,7 +48,7 @@ export default function NeumorphicButton({
   // Define position styles
   const positionStyles = {
     left: "left-6 bottom-6",
-    center: "left-1/2 -translate-x-1/2 bottom-6",
+    center: "left-1/2 -translate-x-1/2 bottom-12", // Slightly higher for iPhone-like positioning
     right: "right-6 bottom-6",
   };
 
@@ -58,7 +58,7 @@ export default function NeumorphicButton({
     <motion.button
       className={cn(
         "fixed z-50 flex items-center justify-center",
-        "size-16 rounded-full shadow-lg",
+        "aspect-square rounded-full shadow-lg",
         "focus:outline-none focus:ring-2 focus:ring-ring",
         "relative overflow-hidden",
         scheme.bg,
@@ -69,15 +69,14 @@ export default function NeumorphicButton({
       onClick={onClick}
       whileTap={{ scale: 0.95 }}
       style={{
-        boxShadow: `12px 12px 24px rgba(0, 0, 0, 0.2), 
-                   -8px -8px 20px rgba(255, 255, 255, 0.3), 
-                   inset 2px 2px 5px rgba(255, 255, 255, 0.2), 
-                   inset -3px -3px 7px rgba(0, 0, 0, 0.1)`,
-      }}
-      initial={{ y: 100, opacity: 0 }}
-      animate={{ 
-        y: 0, 
-        opacity: 1,
+        // Ensure the button maintains its circular shape with fixed dimensions
+        width: '64px',
+        height: '64px',
+        minWidth: '64px',
+        minHeight: '64px',
+        maxWidth: '64px',
+        maxHeight: '64px',
+        borderRadius: '50%',
         boxShadow: isActive 
           ? `0px 0px 15px ${scheme.shadow},
              inset 2px 2px 5px rgba(0, 0, 0, 0.3),
@@ -86,6 +85,11 @@ export default function NeumorphicButton({
              -8px -8px 20px rgba(255, 255, 255, 0.3), 
              inset 2px 2px 5px rgba(255, 255, 255, 0.2), 
              inset -3px -3px 7px rgba(0, 0, 0, 0.1)`
+      }}
+      initial={{ y: 100, opacity: 0 }}
+      animate={{ 
+        y: 0, 
+        opacity: 1,
       }}
       transition={{
         type: "spring",

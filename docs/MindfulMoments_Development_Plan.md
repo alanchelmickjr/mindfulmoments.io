@@ -31,7 +31,7 @@ The app combines two powerful concepts:
   - Modify Messages component to support 2-4 conversation bubbles ✅
   - Implement message appearance and fading with controlled timing ✅
   - Add logic to keep important messages visible longer ✅
-- Redesign control interface (Mostly Complete)
+- Redesign control interface ✅
   - Reposition microphone button to lower left ✅
   - Upgrade microphone button ✅
     - Make larger and circular ✅
@@ -39,8 +39,15 @@ The app combines two powerful concepts:
     - Remove horizontal MicFFT visualization bar ✅
   - Add video toggle button in lower right for emotional analysis ✅
   - Create neumorphic button design for all controls ✅
-  - Create text input drawer animation for muted state, the VoiceProvider takes text also (and outputs text to the messages which we will capture)
-  - Add paper airplane send icon for text input
+  - Properly align buttons in iPhone-style layout ✅
+    - Mic button on bottom left ✅
+    - End call button centered and slightly higher ✅
+    - Video button on bottom right (muted by default) ✅
+  - Create text input drawer animation for muted state ✅
+  - Add paper airplane send icon for text input ✅
+  - Add additional control buttons ✅
+    - Audio mute/unmute toggle ✅
+    - Pause/resume assistant toggle ✅
 
 ### Phase 2: Emotional Analysis System and Memory Foundation
 
