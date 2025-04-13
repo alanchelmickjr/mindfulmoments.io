@@ -55,7 +55,7 @@ export const Nav = () => {
         <Button
           onClick={toggleDark}
           variant={"ghost"}
-          className={"ml-auto flex items-center gap-1.5"}
+          className={"ml-auto flex items-center gap-1.5 pr-14"}
         >
           <span>
             {isDarkMode ? (
