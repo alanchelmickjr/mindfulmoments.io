@@ -6,6 +6,7 @@ import { Button } from "./ui/button";
 import { Moon, Sun } from "lucide-react";
 import Github from "./logos/GitHub";
 import pkg from '@/package.json';
+import { Weather } from "./Weather";
 
 export const Nav = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -29,7 +30,7 @@ export const Nav = () => {
   return (
     <div
       className={
-        "px-4 py-2 flex items-center h-14 z-50 bg-card border-b border-border"
+        "px-4 py-2 flex items-center h-14 z-50 bg-card border-b border-border relative"
       }
     >
       <div>
@@ -50,12 +51,11 @@ export const Nav = () => {
           <span>
             <Github className={"size-4"} />
           </span>
-          <span>Star on GitHub</span>
         </Button>
         <Button
           onClick={toggleDark}
           variant={"ghost"}
-          className={"ml-auto flex items-center gap-1.5 pr-14"}
+          className={"ml-auto flex items-center gap-1.5"}
         >
           <span>
             {isDarkMode ? (
@@ -64,8 +64,8 @@ export const Nav = () => {
               <Moon className={"size-4"} />
             )}
           </span>
-          <span>{isDarkMode ? "Light" : "Dark"} Mode</span>
         </Button>
+        <Weather />
       </div>
     </div>
   );

@@ -91,8 +91,8 @@ export const Weather = () => {
   const ringColor = getTemperatureColor(weather.temperature);
 
   return (
-    <div className="absolute top-3 right-4 z-50">
-      <div 
+    <div className="absolute top-2 right-4 z-50">
+      <div
         className="relative flex items-center justify-center h-10 w-10 rounded-full bg-gray-800 dark:bg-gray-900"
         style={{
           boxShadow: `0 0 0 2px ${ringColor}`,
