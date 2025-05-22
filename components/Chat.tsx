@@ -45,22 +45,25 @@ const handleToolCall: ToolCallHandler = async (
 };
 
 /**
- * ClientComponent serves as the main container for the mindfulness application.
+ * Chat serves as the main container for the mindfulness application.
  * It provides voice capabilities through Hume AI and manages the UI components.
  */
-interface ClientComponentProps {
+interface ChatProps {
   /** Access token for Hume AI voice services */
   accessToken: string;
 }
 
-export default function ClientComponent({
+export default function Chat({
   accessToken,
-}: ClientComponentProps) {
+}: ChatProps) {
   const timeout = useRef<number | null>(null);
   const ref = useRef<ComponentRef<typeof Messages> | null>(null);
 
-  // Optional: use configId from environment variable
-  const configId = process.env['NEXT_PUBLIC_HUME_CONFIG_ID'];
+  // Ensure `configId` is `undefined` if the env var is missing or an empty string,
+  // so Hume uses its default.
+  // const rawConfigId = process.env.NEXT_PUBLIC_HUME_CONFIG_ID;
+  // const configId = rawConfigId && rawConfigId.trim() !== "" ? rawConfigId : undefined;
+  const configId = undefined; // Temporarily force undefined to test Hume's default
   
   /**
    * Handles auto-scrolling when new messages arrive
@@ -89,7 +92,7 @@ export default function ClientComponent({
     >
       <VoiceProvider
         auth={{ type: "accessToken", value: accessToken }}
-        configId={configId}
+        configId={configId} // Use the processed configId
         onMessage={handleNewMessage}
         onToolCall={handleToolCall}
         onError={(error) => {

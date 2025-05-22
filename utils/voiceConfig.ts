@@ -1,6 +1,6 @@
 "use client";
 
-interface VoiceConfig {
+export interface VoiceConfig {
   id: string;
   name: string;
   description: string;

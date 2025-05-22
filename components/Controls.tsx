@@ -1,36 +1,13 @@
 "use client";
 import { useVoice } from "@humeai/voice-react";
-import { Mic, MicOff, Phone, Send, Video, Volume2, VolumeX, Pause, Play, ChevronDown } from "lucide-react";
-import { useState, useEffect } from "react";
-import { fetchAvailableVoices, storeSelectedVoice, getStoredVoice } from "@/utils/voiceConfig";
+import { Mic, MicOff, Phone, Send, Video, Volume2, VolumeX, Pause, Play } from "lucide-react";
+import { useState } from "react";
 import CircularFFT from "./CircularFFT";
 import { cn } from "@/utils";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface VoiceConfig {
-  id: string;
-  name: string;
-  description: string;
-  previewUrl?: string;
-}
-
 export default function Controls() {
   const { disconnect, status, isMuted, unmute, mute, micFft } = useVoice();
-  const [availableVoices, setAvailableVoices] = useState<VoiceConfig[]>([]);
-  const [selectedVoice, setSelectedVoice] = useState<string | null>(null);
-  const [showVoiceMenu, setShowVoiceMenu] = useState(false);
-
-  useEffect(() => {
-    const storedVoice = getStoredVoice();
-    if (storedVoice) setSelectedVoice(storedVoice);
-
-    fetchAvailableVoices().then(voices => {
-      setAvailableVoices(voices);
-      if (!storedVoice && voices.length > 0) {
-        setSelectedVoice(voices[0].id);
-      }
-    });
-  }, []);
   const [videoEnabled, setVideoEnabled] = useState(false);
   const [textInput, setTextInput] = useState("");
   const [isAudioMuted, setIsAudioMuted] = useState(false);
@@ -73,38 +50,8 @@ export default function Controls() {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 flex flex-col items-center gap-4 p-4 z-50">
-      {/* Voice Selector */}
-      {availableVoices.length > 0 && (
-        <div className="relative">
-          <button 
-            onClick={() => setShowVoiceMenu(!showVoiceMenu)}
-            className="flex items-center gap-2 bg-card/90 rounded-full px-4 py-2 shadow-lg"
-          >
-            <span>{availableVoices.find(v => v.id === selectedVoice)?.name || 'Select Voice'}</span>
-            <ChevronDown className="size-4" />
-          </button>
-          
-          {showVoiceMenu && (
-            <div className="absolute bottom-full mb-2 w-full bg-card rounded-lg shadow-lg overflow-hidden">
-              {availableVoices.map(voice => (
-                <button
-                  key={voice.id}
-                  onClick={() => {
-                    setSelectedVoice(voice.id);
-                    storeSelectedVoice(voice.id);
-                    setShowVoiceMenu(false);
-                  }}
-                  className={`w-full text-left px-4 py-2 hover:bg-accent ${voice.id === selectedVoice ? 'bg-primary text-primary-foreground' : ''}`}
-                >
-                  {voice.name}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      )}
-
       {/* Main Controls */}
+      {/* Voice Selector UI has been removed */}
       <div className="flex items-center gap-4 bg-card/90 rounded-full p-2 px-6 shadow-lg">
       {/* Text drawer - Row 1, spans all columns when visible */}
       <AnimatePresence>
@@ -209,6 +156,7 @@ function ControlButton({
   onClick,
   pulseEffect,
   size = "normal",
+  ariaLabel,
 }: {
   icon: React.ReactNode;
   color: string;
@@ -216,6 +164,7 @@ function ControlButton({
   onClick: () => void;
   pulseEffect?: React.ReactNode;
   size?: "small" | "normal";
+  ariaLabel?: string;
 }) {
   const buttonSize = size === "small" ? "w-10 h-10" : "w-16 h-16";
   
@@ -231,14 +180,15 @@ function ControlButton({
       )}
       onClick={onClick}
       whileTap={{ scale: 0.95 }}
+      aria-label={ariaLabel}
       style={{
-        boxShadow: isActive 
+        boxShadow: isActive
           ? `0px 0px 15px rgba(255, 255, 255, 0.3),
              inset 2px 2px 5px rgba(0, 0, 0, 0.3),
              inset -2px -2px 5px rgba(255, 255, 255, 0.1)`
-          : `12px 12px 24px rgba(0, 0, 0, 0.2), 
-             -8px -8px 20px rgba(255, 255, 255, 0.3), 
-             inset 2px 2px 5px rgba(255, 255, 255, 0.2), 
+          : `12px 12px 24px rgba(0, 0, 0, 0.2),
+             -8px -8px 20px rgba(255, 255, 255, 0.3),
+             inset 2px 2px 5px rgba(255, 255, 255, 0.2),
              inset -3px -3px 7px rgba(0, 0, 0, 0.1)`,
         minWidth: size === "small" ? "40px" : "64px",
         minHeight: size === "small" ? "40px" : "64px",
@@ -247,8 +197,8 @@ function ControlButton({
         borderRadius: "50%"
       }}
       initial={{ y: 100, opacity: 0 }}
-      animate={{ 
-        y: 0, 
+      animate={{
+        y: 0,
         opacity: 1,
       }}
       transition={{
