@@ -1,3 +1,12 @@
+> **Quick Recovery Checklist**
+>
+> 1. Collect error messages from browser, server, and terminal.
+> 2. Review recent git commits for breaking changes.
+> 3. Verify environment variables and dependencies.
+> 4. Decide: Rollback to last stable commit or fix incrementally.
+> 5. Test after each change and document all fixes.
+> 6. Once stable, perform root cause analysis and update docs.
+---
 # Project Recovery Plan: Mindful Moments
 
 ## 1. Introduction

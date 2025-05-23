@@ -11,24 +11,15 @@ const Chat = dynamic(() => import("@/components/Chat"), {
   ssr: false,
 });
 
-interface MainContentClientProps {
-  accessToken: string;
-}
-
-const MainContentClient: React.FC<MainContentClientProps> = ({ accessToken }) => {
+const MainContentClient: React.FC = () => {
   const [isListening, setIsListening] = useState(false);
   const [isTalking, setIsTalking] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  // Removed state for availableVoices and selectedVoice
-
-  // Removed useEffect for fetching voices
 
   const handleTextSubmit = (text: string) => {
     console.log("Text submitted from drawer:", text);
     // Here you would typically send the text to your chat backend or handle it as needed
   };
-
-  // Removed handleSetSelectedVoice handler
 
   return (
     <div className={"grow flex flex-col items-center justify-center relative"}>
@@ -43,7 +34,7 @@ const MainContentClient: React.FC<MainContentClientProps> = ({ accessToken }) =>
 
       {/* The Chat component can be placed below or alongside */}
       <div className="w-full max-w-md"> {/* Example styling for chat */}
-        <Chat accessToken={accessToken} />
+        <Chat />
       </div>
 
       <TextInputDrawer

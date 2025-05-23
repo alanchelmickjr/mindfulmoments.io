@@ -48,14 +48,7 @@ const handleToolCall: ToolCallHandler = async (
  * Chat serves as the main container for the mindfulness application.
  * It provides voice capabilities through Hume AI and manages the UI components.
  */
-interface ChatProps {
-  /** Access token for Hume AI voice services */
-  accessToken: string;
-}
-
-export default function Chat({
-  accessToken,
-}: ChatProps) {
+export default function Chat() {
   const timeout = useRef<number | null>(null);
   const ref = useRef<ComponentRef<typeof Messages> | null>(null);
 
@@ -91,7 +84,6 @@ export default function Chat({
       }
     >
       <VoiceProvider
-        auth={{ type: "accessToken", value: accessToken }}
         configId={configId} // Use the processed configId
         onMessage={handleNewMessage}
         onToolCall={handleToolCall}

@@ -5,11 +5,24 @@ import Expressions from "./Expressions";
 import { AnimatePresence, motion } from "framer-motion";
 import { ComponentRef, forwardRef } from "react";
 
+type Message = {
+  type: string;
+  message: {
+    role: string;
+    content: string;
+  };
+  models: {
+    prosody?: {
+      scores?: Record<string, number>;
+    };
+  };
+};
+
 const Messages = forwardRef<
   ComponentRef<typeof motion.div>,
   Record<never, never>
 >(function Messages(_, ref) {
-  const { messages } = useVoice();
+  const { messages } = useVoice() as { messages: Message[] };
 
   return (
     <motion.div
@@ -21,7 +34,7 @@ const Messages = forwardRef<
         className={"max-w-2xl mx-auto w-full flex flex-col gap-4 pb-24"}
       >
         <AnimatePresence mode={"popLayout"}>
-          {messages.map((msg, index) => {
+          {messages.map((msg: Message, index: number) => {
             if (
               msg.type === "user_message" ||
               msg.type === "assistant_message"

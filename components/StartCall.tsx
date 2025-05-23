@@ -60,7 +60,7 @@ export default function StartCall() {
                     .then(() => {
                       console.log("Connection established successfully");
                     })
-                    .catch((error) => {
+                    .catch((error: any) => {
                       console.error("Failed to connect:", error);
                       // Could add user-facing error handling here
                     })
